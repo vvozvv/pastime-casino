@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const MongoClient = require('mongodb').MongoClient
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -26,11 +25,8 @@ app.use(passport.initialize())
 
 require('./middleware/passport')(passport)
 
-let corsOptions = {
-  origin: "Your FrontEnd Website URL",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-app.use(cors(corsOptions))
+app.use(cors())
+app.options('*', cors())
 
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
