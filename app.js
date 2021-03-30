@@ -53,6 +53,8 @@ async function start() {
     // start server
     app.listen(process.env.PORT, () => {
       console.log('Server has been started...')
+      console.log("Database_URL", process.env.PORT);
+      console.log("Database_URL", process.env.MONGO_URI);
     })
   } catch(e) {
     console.log(e);
