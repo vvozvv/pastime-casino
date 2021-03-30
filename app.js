@@ -26,10 +26,12 @@ app.use(passport.initialize())
 
 require('./middleware/passport')(passport)
 
-app.use(cors())
-app.use(function(req, res) {
-  res.header('Access-Control-Allow-Headers', true);
-})
+let corsOptions = {
+  origin: "Your FrontEnd Website URL",
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+app.use(cors(corsOptions))
+
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(mainRouter)
