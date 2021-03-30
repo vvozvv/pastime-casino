@@ -48,8 +48,8 @@ async function start() {
   try {
     await mongoose.connect(`${process.env.MONGODB_URI}`, { 
       useFindAndModify: false, 
-      useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      useNewUrlParser: true
     })
 
     // start server
