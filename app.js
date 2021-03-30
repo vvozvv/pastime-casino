@@ -15,7 +15,7 @@ const GamesRoute = require('./routes/games')
 const MenuRoute = require('./routes/menu')
 const UserRoute = require('./routes/user')
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080
 
 const app = express()
 
@@ -52,7 +52,7 @@ async function start() {
 
     // start server
     app.listen(PORT, () => {
-      console.log('Server has been started...')
+      console.log(`Server has been started on PORT: ${PORT}`)
     })
   } catch(e) {
     console.log(e);
