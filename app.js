@@ -44,17 +44,18 @@ app.use(UserRoute)
 
 async function start() {
   try {
-    await mongoose.connect(`${process.env.MONGO_URI}`, { 
+    let connect = await mongoose.connect(`${process.env.MONGODB_URI}`, { 
       useFindAndModify: false, 
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
+    console.log(connect);
 
     // start server
     app.listen(process.env.PORT, () => {
       console.log('Server has been started...')
       console.log("Database_URL", process.env.PORT);
-      console.log("Database_URL", process.env.MONGO_URI);
+      console.log("Database_URL", process.env.MONGODB_URI);
     })
   } catch(e) {
     console.log(e);
