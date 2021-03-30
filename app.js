@@ -44,25 +44,14 @@ app.use(UserRoute)
 
 async function start() {
   try {
-    const client = await new MongoClient(`${process.env.MONGODB_URI}`, { 
+    await mongoose.connect(`${process.env.MONGODB_URI}`, { 
       useFindAndModify: false, 
       useNewUrlParser: true,
       useUnifiedTopology: true
     })
-    client.connect(err => {
-      const collection = client.db("todos").collection("users");
-      console.log(collection);
-      // perform actions on the collection object
-      client.close();
-    });
-    // await mongoose.connect(`${process.env.MONGODB_URI}`, { 
-    //   useFindAndModify: false, 
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true
-    // })
 
     // start server
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
       console.log('Server has been started...')
     })
   } catch(e) {
