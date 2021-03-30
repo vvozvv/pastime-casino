@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const MongoError = require('cors').MongoError
 const passport = require('passport')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -14,7 +15,6 @@ const GamesRoute = require('./routes/games')
 const MenuRoute = require('./routes/menu')
 const UserRoute = require('./routes/user')
 
-
 const PORT = process.env.APP_PORT || 5000
 
 const app = express()
@@ -27,6 +27,10 @@ app.use(passport.initialize())
 require('./middleware/passport')(passport)
 
 app.use(cors())
+app.use(function(req, res) {
+  res.header('Access-Control-Allow-Headers', true);
+  res.header('Access-Control-Allow-Credentials', true);
+})
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(mainRouter)
@@ -41,7 +45,10 @@ app.use(UserRoute)
 
 async function start() {
   try {
-    await mongoose.connect(`${process.env.DATABASE_URL}`, { useFindAndModify: false })
+    await mongoose.connect(`${process.env.DATABASE_URL}`, { 
+      useFindAndModify: false, 
+      useNewUrlParser: true
+    })
 
     // start server
     app.listen(process.env.APP_PORT, () => {
